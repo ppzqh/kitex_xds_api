@@ -3,9 +3,12 @@ module github.com/ppzqh/kitex_xds_api
 go 1.17
 
 require (
+	github.com/census-instrumentation/opencensus-proto v0.2.1
 	github.com/cloudwego/kitex v0.3.2
 	github.com/cncf/xds/go v0.0.0-20220520190051-1e77728a1eaa
 	github.com/envoyproxy/go-control-plane v0.10.2-0.20220325020618-49ff273808a1
+	github.com/envoyproxy/protoc-gen-validate v0.1.0
+	github.com/golang/protobuf v1.5.2
 	google.golang.org/genproto v0.0.0-20220616135557-88e70c0c3a90
 	google.golang.org/protobuf v1.28.0
 )
@@ -16,8 +19,6 @@ require (
 	github.com/choleraehyq/pid v0.0.13 // indirect
 	github.com/cloudwego/netpoll v0.2.4 // indirect
 	github.com/cloudwego/thriftgo v0.1.2 // indirect
-	github.com/envoyproxy/protoc-gen-validate v0.1.0 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect

@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/streaming"
 	"github.com/cloudwego/kitex/transport"
-	"github.com/ppzqh/kitex_xds_api/discoveryv3"
+	"github.com/ppzqh/kitex_xds_api/github.com/envoyproxy/go-control-plane/envoy/service"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
@@ -19,14 +19,14 @@ type Client interface {
 
 type AggregatedDiscoveryService_StreamAggregatedResourcesClient interface {
 	streaming.Stream
-	Send(*discoveryv3.DiscoveryRequest) error
-	Recv() (*discoveryv3.DiscoveryResponse, error)
+	Send(*service.DiscoveryRequest) error
+	Recv() (*service.DiscoveryResponse, error)
 }
 
 type AggregatedDiscoveryService_DeltaAggregatedResourcesClient interface {
 	streaming.Stream
-	Send(*discoveryv3.DeltaDiscoveryRequest) error
-	Recv() (*discoveryv3.DeltaDiscoveryResponse, error)
+	Send(*service.DeltaDiscoveryRequest) error
+	Recv() (*service.DeltaDiscoveryResponse, error)
 }
 
 // NewClient creates a client for the service defined in IDL.

@@ -4,7 +4,7 @@
 // 	protoc        v3.17.3
 // source: envoyproxy/data-plane-api/envoy/service/discovery/v3/ads.proto
 
-package discoveryv3
+package service
 
 import (
 	context "context"

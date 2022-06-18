@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	"github.com/cloudwego/kitex/pkg/streaming"
-	discoveryv3 "github.com/ppzqh/kitex_xds_api/discoveryv3"
+	"github.com/ppzqh/kitex_xds_api/github.com/envoyproxy/go-control-plane/envoy/service"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -20,7 +20,7 @@ var aggregatedDiscoveryServiceServiceInfo = NewServiceInfo()
 
 func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "AggregatedDiscoveryService"
-	handlerType := (*discoveryv3.AggregatedDiscoveryService)(nil)
+	handlerType := (*service.AggregatedDiscoveryService)(nil)
 	methods := map[string]kitex.MethodInfo{
 		"StreamAggregatedResources": kitex.NewMethodInfo(streamAggregatedResourcesHandler, newStreamAggregatedResourcesArgs, newStreamAggregatedResourcesResult, false),
 		"DeltaAggregatedResources":  kitex.NewMethodInfo(deltaAggregatedResourcesHandler, newDeltaAggregatedResourcesArgs, newDeltaAggregatedResourcesResult, false),
@@ -43,18 +43,18 @@ func NewServiceInfo() *kitex.ServiceInfo {
 func streamAggregatedResourcesHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	st := arg.(*streaming.Args).Stream
 	stream := &aggregatedDiscoveryServiceStreamAggregatedResourcesServer{st}
-	return handler.(discoveryv3.AggregatedDiscoveryService).StreamAggregatedResources(stream)
+	return handler.(service.AggregatedDiscoveryService).StreamAggregatedResources(stream)
 }
 
 type aggregatedDiscoveryServiceStreamAggregatedResourcesClient struct {
 	streaming.Stream
 }
 
-func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesClient) Send(m *discoveryv3.DiscoveryRequest) error {
+func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesClient) Send(m *service.DiscoveryRequest) error {
 	return x.Stream.SendMsg(m)
 }
-func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesClient) Recv() (*discoveryv3.DiscoveryResponse, error) {
-	m := new(discoveryv3.DiscoveryResponse)
+func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesClient) Recv() (*service.DiscoveryResponse, error) {
+	m := new(service.DiscoveryResponse)
 	return m, x.Stream.RecvMsg(m)
 }
 
@@ -62,12 +62,12 @@ type aggregatedDiscoveryServiceStreamAggregatedResourcesServer struct {
 	streaming.Stream
 }
 
-func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesServer) Send(m *discoveryv3.DiscoveryResponse) error {
+func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesServer) Send(m *service.DiscoveryResponse) error {
 	return x.Stream.SendMsg(m)
 }
 
-func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesServer) Recv() (*discoveryv3.DiscoveryRequest, error) {
-	m := new(discoveryv3.DiscoveryRequest)
+func (x *aggregatedDiscoveryServiceStreamAggregatedResourcesServer) Recv() (*service.DiscoveryRequest, error) {
+	m := new(service.DiscoveryRequest)
 	return m, x.Stream.RecvMsg(m)
 }
 
@@ -80,7 +80,7 @@ func newStreamAggregatedResourcesResult() interface{} {
 }
 
 type StreamAggregatedResourcesArgs struct {
-	Req *discoveryv3.DiscoveryRequest
+	Req *service.DiscoveryRequest
 }
 
 func (p *StreamAggregatedResourcesArgs) Marshal(out []byte) ([]byte, error) {
@@ -91,7 +91,7 @@ func (p *StreamAggregatedResourcesArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *StreamAggregatedResourcesArgs) Unmarshal(in []byte) error {
-	msg := new(discoveryv3.DiscoveryRequest)
+	msg := new(service.DiscoveryRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -99,9 +99,9 @@ func (p *StreamAggregatedResourcesArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var StreamAggregatedResourcesArgs_Req_DEFAULT *discoveryv3.DiscoveryRequest
+var StreamAggregatedResourcesArgs_Req_DEFAULT *service.DiscoveryRequest
 
-func (p *StreamAggregatedResourcesArgs) GetReq() *discoveryv3.DiscoveryRequest {
+func (p *StreamAggregatedResourcesArgs) GetReq() *service.DiscoveryRequest {
 	if !p.IsSetReq() {
 		return StreamAggregatedResourcesArgs_Req_DEFAULT
 	}
@@ -113,10 +113,10 @@ func (p *StreamAggregatedResourcesArgs) IsSetReq() bool {
 }
 
 type StreamAggregatedResourcesResult struct {
-	Success *discoveryv3.DiscoveryResponse
+	Success *service.DiscoveryResponse
 }
 
-var StreamAggregatedResourcesResult_Success_DEFAULT *discoveryv3.DiscoveryResponse
+var StreamAggregatedResourcesResult_Success_DEFAULT *service.DiscoveryResponse
 
 func (p *StreamAggregatedResourcesResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
@@ -126,7 +126,7 @@ func (p *StreamAggregatedResourcesResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *StreamAggregatedResourcesResult) Unmarshal(in []byte) error {
-	msg := new(discoveryv3.DiscoveryResponse)
+	msg := new(service.DiscoveryResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -134,7 +134,7 @@ func (p *StreamAggregatedResourcesResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *StreamAggregatedResourcesResult) GetSuccess() *discoveryv3.DiscoveryResponse {
+func (p *StreamAggregatedResourcesResult) GetSuccess() *service.DiscoveryResponse {
 	if !p.IsSetSuccess() {
 		return StreamAggregatedResourcesResult_Success_DEFAULT
 	}
@@ -142,7 +142,7 @@ func (p *StreamAggregatedResourcesResult) GetSuccess() *discoveryv3.DiscoveryRes
 }
 
 func (p *StreamAggregatedResourcesResult) SetSuccess(x interface{}) {
-	p.Success = x.(*discoveryv3.DiscoveryResponse)
+	p.Success = x.(*service.DiscoveryResponse)
 }
 
 func (p *StreamAggregatedResourcesResult) IsSetSuccess() bool {
@@ -152,18 +152,18 @@ func (p *StreamAggregatedResourcesResult) IsSetSuccess() bool {
 func deltaAggregatedResourcesHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	st := arg.(*streaming.Args).Stream
 	stream := &aggregatedDiscoveryServiceDeltaAggregatedResourcesServer{st}
-	return handler.(discoveryv3.AggregatedDiscoveryService).DeltaAggregatedResources(stream)
+	return handler.(service.AggregatedDiscoveryService).DeltaAggregatedResources(stream)
 }
 
 type aggregatedDiscoveryServiceDeltaAggregatedResourcesClient struct {
 	streaming.Stream
 }
 
-func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesClient) Send(m *discoveryv3.DeltaDiscoveryRequest) error {
+func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesClient) Send(m *service.DeltaDiscoveryRequest) error {
 	return x.Stream.SendMsg(m)
 }
-func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesClient) Recv() (*discoveryv3.DeltaDiscoveryResponse, error) {
-	m := new(discoveryv3.DeltaDiscoveryResponse)
+func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesClient) Recv() (*service.DeltaDiscoveryResponse, error) {
+	m := new(service.DeltaDiscoveryResponse)
 	return m, x.Stream.RecvMsg(m)
 }
 
@@ -171,12 +171,12 @@ type aggregatedDiscoveryServiceDeltaAggregatedResourcesServer struct {
 	streaming.Stream
 }
 
-func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesServer) Send(m *discoveryv3.DeltaDiscoveryResponse) error {
+func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesServer) Send(m *service.DeltaDiscoveryResponse) error {
 	return x.Stream.SendMsg(m)
 }
 
-func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesServer) Recv() (*discoveryv3.DeltaDiscoveryRequest, error) {
-	m := new(discoveryv3.DeltaDiscoveryRequest)
+func (x *aggregatedDiscoveryServiceDeltaAggregatedResourcesServer) Recv() (*service.DeltaDiscoveryRequest, error) {
+	m := new(service.DeltaDiscoveryRequest)
 	return m, x.Stream.RecvMsg(m)
 }
 
@@ -189,7 +189,7 @@ func newDeltaAggregatedResourcesResult() interface{} {
 }
 
 type DeltaAggregatedResourcesArgs struct {
-	Req *discoveryv3.DeltaDiscoveryRequest
+	Req *service.DeltaDiscoveryRequest
 }
 
 func (p *DeltaAggregatedResourcesArgs) Marshal(out []byte) ([]byte, error) {
@@ -200,7 +200,7 @@ func (p *DeltaAggregatedResourcesArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *DeltaAggregatedResourcesArgs) Unmarshal(in []byte) error {
-	msg := new(discoveryv3.DeltaDiscoveryRequest)
+	msg := new(service.DeltaDiscoveryRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -208,9 +208,9 @@ func (p *DeltaAggregatedResourcesArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var DeltaAggregatedResourcesArgs_Req_DEFAULT *discoveryv3.DeltaDiscoveryRequest
+var DeltaAggregatedResourcesArgs_Req_DEFAULT *service.DeltaDiscoveryRequest
 
-func (p *DeltaAggregatedResourcesArgs) GetReq() *discoveryv3.DeltaDiscoveryRequest {
+func (p *DeltaAggregatedResourcesArgs) GetReq() *service.DeltaDiscoveryRequest {
 	if !p.IsSetReq() {
 		return DeltaAggregatedResourcesArgs_Req_DEFAULT
 	}
@@ -222,10 +222,10 @@ func (p *DeltaAggregatedResourcesArgs) IsSetReq() bool {
 }
 
 type DeltaAggregatedResourcesResult struct {
-	Success *discoveryv3.DeltaDiscoveryResponse
+	Success *service.DeltaDiscoveryResponse
 }
 
-var DeltaAggregatedResourcesResult_Success_DEFAULT *discoveryv3.DeltaDiscoveryResponse
+var DeltaAggregatedResourcesResult_Success_DEFAULT *service.DeltaDiscoveryResponse
 
 func (p *DeltaAggregatedResourcesResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
@@ -235,7 +235,7 @@ func (p *DeltaAggregatedResourcesResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *DeltaAggregatedResourcesResult) Unmarshal(in []byte) error {
-	msg := new(discoveryv3.DeltaDiscoveryResponse)
+	msg := new(service.DeltaDiscoveryResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -243,7 +243,7 @@ func (p *DeltaAggregatedResourcesResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *DeltaAggregatedResourcesResult) GetSuccess() *discoveryv3.DeltaDiscoveryResponse {
+func (p *DeltaAggregatedResourcesResult) GetSuccess() *service.DeltaDiscoveryResponse {
 	if !p.IsSetSuccess() {
 		return DeltaAggregatedResourcesResult_Success_DEFAULT
 	}
@@ -251,7 +251,7 @@ func (p *DeltaAggregatedResourcesResult) GetSuccess() *discoveryv3.DeltaDiscover
 }
 
 func (p *DeltaAggregatedResourcesResult) SetSuccess(x interface{}) {
-	p.Success = x.(*discoveryv3.DeltaDiscoveryResponse)
+	p.Success = x.(*service.DeltaDiscoveryResponse)
 }
 
 func (p *DeltaAggregatedResourcesResult) IsSetSuccess() bool {

@@ -4,7 +4,7 @@
 // 	protoc        v3.17.3
 // source: envoy/service/discovery/v3/discovery.proto
 
-package discoveryv3
+package service
 
 import (
 	context "context"

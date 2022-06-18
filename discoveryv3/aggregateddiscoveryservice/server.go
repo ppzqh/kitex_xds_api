@@ -3,11 +3,11 @@ package aggregateddiscoveryservice
 
 import (
 	"github.com/cloudwego/kitex/server"
-	"github.com/ppzqh/kitex_xds_api/discoveryv3"
+	"github.com/ppzqh/kitex_xds_api/github.com/envoyproxy/go-control-plane/envoy/service"
 )
 
 // NewServer creates a server.Server with the given handler and options.
-func NewServer(handler discoveryv3.AggregatedDiscoveryService, opts ...server.Option) server.Server {
+func NewServer(handler service.AggregatedDiscoveryService, opts ...server.Option) server.Server {
 	var options []server.Option
 
 	options = append(options, opts...)
